@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HR Attrition Dashboard | Task 20</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:#f4f7fb;color:#172033}
+.wrap{max-width:1250px;margin:30px auto;padding:0 20px}
+.header{background:linear-gradient(135deg,#17365d,#2f75b5);color:#fff;border-radius:18px;padding:26px 30px;box-shadow:0 12px 30px rgba(23,54,93,.16)}
+.header h1{margin:0 0 7px;font-size:28px} .header p{margin:0;opacity:.88}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:18px 0}
+.kpi{background:#fff;border-radius:14px;padding:18px;box-shadow:0 5px 18px rgba(0,0,0,.06);border-top:4px solid #2f75b5}
+.kpi small{color:#667085;font-weight:700;letter-spacing:.06em} .kpi b{display:block;font-size:27px;margin-top:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 5px 18px rgba(0,0,0,.06)} h2{font-size:17px;margin:0 0 14px;color:#17365d}
+table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:9px;border-bottom:1px solid #edf0f5;text-align:left} th{background:#eaf2f8;color:#17365d}
+.barrow{display:grid;grid-template-columns:190px 1fr 55px;gap:10px;align-items:center;margin:12px 0;font-size:13px} .track{height:12px;background:#edf2f7;border-radius:8px;overflow:hidden} .fill{height:100%;background:#2f75b5;border-radius:8px}
+.insights{display:grid;gap:10px} .insight{padding:12px 14px;background:#f8fafc;border-left:4px solid #f4b183;border-radius:8px}
+.note{margin-top:18px;color:#667085;font-size:12px} footer{padding:20px 0 40px;color:#667085;text-align:center}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+</style></head>
+<body><div class="wrap">
+<div class="header"><h1>HR Attrition Dashboard</h1><p>Task 20 • Management insights by department, role, tenure and workforce drivers</p></div>
+<div class="kpis">
+<div class="kpi"><small>TOTAL EMPLOYEES</small><b>1,470</b></div>
+<div class="kpi"><small>ATTRITIONS</small><b>237</b></div>
+<div class="kpi"><small>ATTRITION RATE</small><b>16.1%</b></div>
+<div class="kpi"><small>AVG MONTHLY INCOME</small><b>$6,503</b></div>
+<div class="kpi"><small>OVERTIME ATTRITION</small><b>30.5%</b></div>
+</div>
+<div class="grid">
+<div class="card"><h2>Attrition by Department</h2><div id="dept"></div></div>
+<div class="card"><h2>Top Roles by Attrition Rate</h2><div id="role"></div></div>
+<div class="card"><h2>Attrition by Tenure</h2><div id="tenure"></div></div>
+<div class="card"><h2>Overtime & Travel Signals</h2><div id="drivers"></div></div>
+<div class="card" style="grid-column:1/-1"><h2>5 Management Insights</h2><div class="insights" id="insights"></div></div>
+</div>
+<div class="note">Presentation uses aggregated metrics. EmployeeNumber is intentionally excluded from the dashboard view to minimize unnecessary employee-level exposure.</div>
+<footer>HR Attrition Analytics • Power BI / Excel-ready project</footer>
+</div>
+<script>
+const D={"dept": [{"Department": "Human Resources", "Employees": 63, "Attritions": 12, "Attrition_Rate": 19.0, "Avg_Monthly_Income": 6655}, {"Department": "Research & Development", "Employees": 961, "Attritions": 133, "Attrition_Rate": 13.8, "Avg_Monthly_Income": 6281}, {"Department": "Sales", "Employees": 446, "Attritions": 92, "Attrition_Rate": 20.6, "Avg_Monthly_Income": 6959}], "role": [{"JobRole": "Sales Representative", "Employees": 83, "Attritions": 33, "Attrition_Rate": 39.8, "Avg_Monthly_Income": 2626}, {"JobRole": "Laboratory Technician", "Employees": 259, "Attritions": 62, "Attrition_Rate": 23.9, "Avg_Monthly_Income": 3237}, {"JobRole": "Human Resources", "Employees": 52, "Attritions": 12, "Attrition_Rate": 23.1, "Avg_Monthly_Income": 4236}, {"JobRole": "Sales Executive", "Employees": 326, "Attritions": 57, "Attrition_Rate": 17.5, "Avg_Monthly_Income": 6924}, {"JobRole": "Research Scientist", "Employees": 292, "Attritions": 47, "Attrition_Rate": 16.1, "Avg_Monthly_Income": 3240}, {"JobRole": "Healthcare Representative", "Employees": 131, "Attritions": 9, "Attrition_Rate": 6.9, "Avg_Monthly_Income": 7529}, {"JobRole": "Manufacturing Director", "Employees": 145, "Attritions": 10, "Attrition_Rate": 6.9, "Avg_Monthly_Income": 7295}, {"JobRole": "Manager", "Employees": 102, "Attritions": 5, "Attrition_Rate": 4.9, "Avg_Monthly_Income": 17182}, {"JobRole": "Research Director", "Employees": 80, "Attritions": 2, "Attrition_Rate": 2.5, "Avg_Monthly_Income": 16034}], "tenure": [{"TenureBucket": "0\u20131", "Employees": 215, "Attritions": 75, "Attrition_Rate": 34.9, "Avg_Monthly_Income": 4565}, {"TenureBucket": "2\u20133", "Employees": 255, "Attritions": 47, "Attrition_Rate": 18.4, "Avg_Monthly_Income": 5017}, {"TenureBucket": "4\u20135", "Employees": 306, "Attritions": 40, "Attrition_Rate": 13.1, "Avg_Monthly_Income": 5484}, {"TenureBucket": "6\u201310", "Employees": 448, "Attritions": 55, "Attrition_Rate": 12.3, "Avg_Monthly_Income": 6567}, {"TenureBucket": "11\u201320", "Employees": 180, "Attritions": 12, "Attrition_Rate": 6.7, "Avg_Monthly_Income": 9009}, {"TenureBucket": "21+", "Employees": 66, "Attritions": 8, "Attrition_Rate": 12.1, "Avg_Monthly_Income": 16008}], "age": [{"AgeBucket": "18\u201324", "Employees": 97, "Attritions": 38, "Attrition_Rate": 39.2, "Avg_Monthly_Income": 2659}, {"AgeBucket": "25\u201334", "Employees": 554, "Attritions": 112, "Attrition_Rate": 20.2, "Avg_Monthly_Income": 4786}, {"AgeBucket": "35\u201344", "Employees": 505, "Attritions": 51, "Attrition_Rate": 10.1, "Avg_Monthly_Income": 6788}, {"AgeBucket": "45\u201354", "Employees": 245, "Attritions": 25, "Attrition_Rate": 10.2, "Avg_Monthly_Income": 10202}, {"AgeBucket": "55+", "Employees": 69, "Attritions": 11, "Attrition_Rate": 15.9, "Avg_Monthly_Income": 10475}], "travel": [{"BusinessTravel": "Non-Travel", "Employees": 150, "Attritions": 12, "Attrition_Rate": 8.0, "Avg_Monthly_Income": 6262}, {"BusinessTravel": "Travel_Frequently", "Employees": 277, "Attritions": 69, "Attrition_Rate": 24.9, "Avg_Monthly_Income": 6194}, {"BusinessTravel": "Travel_Rarely", "Employees": 1043, "Attritions": 156, "Attrition_Rate": 15.0, "Avg_Monthly_Income": 6620}], "overtime": [{"OverTime": "No", "Employees": 1054, "Attritions": 110, "Attrition_Rate": 10.4, "Avg_Monthly_Income": 6485}, {"OverTime": "Yes", "Employees": 416, "Attritions": 127, "Attrition_Rate": 30.5, "Avg_Monthly_Income": 6549}], "overall_rate": 16.1, "total_employees": 1470, "total_attritions": 237, "avg_income": 6503, "insights": ["Overall attrition is 16.1% (237 of 1470 employees), establishing the baseline for all segment comparisons.", "Sales has the highest department attrition at 20.6%, compared with 17.8% across the three departments.", "Sales Representatives are the highest-risk role at 39.8%, followed by Laboratory Technicians at 23.9%.", "Overtime is strongly associated with attrition: 30.5% for employees working overtime versus 10.4% for those who do not.", "Early tenure is the clearest tenure signal: employees with 0\u20131 years at the company have 34.9% attrition, while 11\u201320 years is only 6.7%."]};
+function bars(id,arr,labelKey){
+ const el=document.getElementById(id); const max=Math.max(...arr.map(x=>x.Attrition_Rate));
+ el.innerHTML=arr.map(x=>`<div class="barrow"><span>${x[labelKey]}</span><div class="track"><div class="fill" style="width:${(x.Attrition_Rate/max*100).toFixed(1)}%"></div></div><b>${x.Attrition_Rate}%</b></div>`).join('');
+}
+bars('dept',D.dept,'Department'); bars('role',D.role.slice(0,6),'JobRole'); bars('tenure',D.tenure,'TenureBucket');
+document.getElementById('drivers').innerHTML = [...D.overtime.map(x=>`<div class="barrow"><span>Overtime: ${x.OverTime}</span><div class="track"><div class="fill" style="width:${x.Attrition_Rate/35*100}%"></div></div><b>${x.Attrition_Rate}%</b></div>`),
+...D.travel.map(x=>`<div class="barrow"><span>${x.BusinessTravel}</span><div class="track"><div class="fill" style="width:${x.Attrition_Rate/35*100}%"></div></div><b>${x.Attrition_Rate}%</b></div>`)].join('');
+document.getElementById('insights').innerHTML=D.insights.map((x,i)=>`<div class="insight"><b>${i+1}.</b> ${x}</div>`).join('');
+</script></body></html>

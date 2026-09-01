@@ -1,0 +1,13 @@
+# Power BI DAX Measures
+
+Total Employees = COUNTROWS(HR_Attrition)
+
+Attritions = CALCULATE([Total Employees], HR_Attrition[Attrition] = "Yes")
+
+Attrition Rate = DIVIDE([Attritions], [Total Employees], 0)
+
+Average Monthly Income = AVERAGE(HR_Attrition[MonthlyIncome])
+
+Overtime Attrition Rate = CALCULATE([Attrition Rate], HR_Attrition[OverTime] = "Yes")
+
+Non-O/T Attrition Rate = CALCULATE([Attrition Rate], HR_Attrition[OverTime] = "No")
